@@ -1,0 +1,90 @@
+/* src/SnakeGame.css */
+body {
+    background-color: bisque;
+  }
+  
+  .game-container {
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .game-board {
+    position: relative;
+    width: 100%;
+    width: 500px;
+    height: 500px;
+    background-color: #cbf5b3;
+    border: 7px solid #0a2201;
+    margin: 0 auto;
+  }
+  
+  .snake-segment, .food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Заокруглені елементи */
+  }
+  
+  .snake-segment.head {
+    background-color: #8521be;
+    border-radius: 50%;
+  }
+  
+  .snake-segment {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #c298f1;
+    border-radius: 20%;
+  }
+  
+  .food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #69c41e;
+    border-radius: 100%;
+  }
+  
+  .game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.5em;
+  }
+  
+  .difficulty-selector {
+    text-align: center;
+    margin: 20px;
+    color: #444;
+    font-size: x-large;
+  }
+  
+  .difficulty-selector button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 27px;
+    color:aliceblue;
+  }
+  
+  .diffButton1 {
+    background-color: #444;
+  }
+  
+  .diffButton2 {
+    background-color: #240606;
+  }
+  
+  .diffButton3 {
+    background-color: #c90f0f;
+  }
