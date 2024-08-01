@@ -1,4 +1,3 @@
-// src/SnakeGame.js
 import React, { useState, useEffect } from 'react';
 import './SnakeGame.css';
 import DifficultySelector from './components/DifficultySelector';
@@ -19,21 +18,28 @@ const SnakeGame = () => {
     else if (difficulty === 'IMPOSSIBLE') setSpeed(50);
   }, [difficulty]);
 
-
   useEffect(() => {
     const handleKeyDown = (e) => {
       switch (e.key) {
         case 'ArrowUp':
-          setDirection('UP');
+        case 'w':
+        case 'ц':
+          setDirection((prev) => (prev !== 'DOWN' ? 'UP' : prev));
           break;
         case 'ArrowDown':
-          setDirection('DOWN');
+        case 's':
+        case 'і':
+          setDirection((prev) => (prev !== 'UP' ? 'DOWN' : prev));
           break;
         case 'ArrowLeft':
-          setDirection('LEFT');
+        case 'a':
+        case 'ф':
+          setDirection((prev) => (prev !== 'RIGHT' ? 'LEFT' : prev));
           break;
         case 'ArrowRight':
-          setDirection('RIGHT');
+        case 'd':
+        case 'в':
+          setDirection((prev) => (prev !== 'LEFT' ? 'RIGHT' : prev));
           break;
         default:
           break;
@@ -42,7 +48,7 @@ const SnakeGame = () => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [direction]);
 
   const checkCollision = (head, snake) => {
     for (let i = 1; i < snake.length; i++) {
@@ -107,7 +113,7 @@ const SnakeGame = () => {
           break;
       }
 
-     newSnake.unshift(head);
+      newSnake.unshift(head);
       if (checkCollision(head, newSnake)) {
         alert('Game Over! You collided with yourself.');
         setSnake([{ x: 10, y: 10 }]);
@@ -119,12 +125,14 @@ const SnakeGame = () => {
 
       if (head.x === food.x && head.y === food.y) {
         setFood({ x: Math.floor(Math.random() * boardSize), y: Math.floor(Math.random() * boardSize) });
-        // Змінено для нарахування очок залежно від режиму
-        let points = 1;
-        if (difficulty === 'EASY') points = 2;       // При простому режимі додаємо 2 очки
-        else if (difficulty === 'HARD') points = 3;  // При складному режимі додаємо 3 очки
-        else if (difficulty === 'IMPOSSIBLE') points = 4; // При неможливому режимі додаємо 4 очки
-        setScore(score + points);
+        // Використання функціонального оновлення для setScore
+        setScore((prevScore) => {
+          let points = 1;
+          if (difficulty === 'EASY') points = 2;
+          else if (difficulty === 'HARD') points = 3;
+          else if (difficulty === 'IMPOSSIBLE') points = 4;
+          return prevScore + points;
+        });
       } else {
         newSnake.pop();
       }
@@ -134,7 +142,7 @@ const SnakeGame = () => {
 
     const interval = setInterval(moveSnake, speed);
     return () => clearInterval(interval);
-  }, [snake, direction, speed]);
+  }, [snake, direction, speed, food.x, food.y, difficulty]); // Додавання food.x, food.y, і difficulty до залежностей
 
   if (!difficulty) {
     return <DifficultySelector setDifficulty={setDifficulty} />;
@@ -146,9 +154,22 @@ const SnakeGame = () => {
       <p>Score: {score}</p>
       <div className="game-board">
         {snake.map((segment, index) => (
-          <div key={index} className={`snake-segment ${index === 0 ? 'head' : ''}`} style={{ left: `${segment.x * (100 / boardSize)}%`, top: `${segment.y * (100 / boardSize)}%` }}></div>
+          <div
+            key={index}
+            className={`snake-segment ${index === 0 ? 'head' : ''}`}
+            style={{
+              left: `${(segment.x * 100) / boardSize}%`,
+              top: `${(segment.y * 100) / boardSize}%`,
+            }}
+          ></div>
         ))}
-        <div className="food" style={{ left: `${food.x * (100 / boardSize)}%`, top: `${food.y * (100 / boardSize)}%` }}></div>
+        <div
+          className="food"
+          style={{
+            left: `${(food.x * 100) / boardSize}%`,
+            top: `${(food.y * 100) / boardSize}%`,
+          }}
+        ></div>
       </div>
     </div>
   );
