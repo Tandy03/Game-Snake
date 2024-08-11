@@ -117,7 +117,7 @@ const SnakeGame = () => {
         case 'UP':
           head.y -= 1;
           if (head.y < 0) {
-            alert('Game Over! You hit the wall.');
+            alert(`Game Over! You hit the wall. Your score: ${score}.`);
             setSnake([{ x: 10, y: 10 }]);
             setDirection('RIGHT');
             setFood({ x: 15, y: 15 });
@@ -128,7 +128,7 @@ const SnakeGame = () => {
         case 'DOWN':
           head.y += 1;
           if (head.y >= boardSize) {
-            alert('Game Over! You hit the wall.');
+            alert(`Game Over! You hit the wall. Your score: ${score}.`);
             setSnake([{ x: 10, y: 10 }]);
             setDirection('RIGHT');
             setFood({ x: 15, y: 15 });
@@ -139,7 +139,7 @@ const SnakeGame = () => {
         case 'LEFT':
           head.x -= 1;
           if (head.x < 0) {
-            alert('Game Over! You hit the wall.');
+            alert(`Game Over! You hit the wall. Your score: ${score}.`);
             setSnake([{ x: 10, y: 10 }]);
             setDirection('RIGHT');
             setFood({ x: 15, y: 15 });
@@ -150,7 +150,7 @@ const SnakeGame = () => {
         case 'RIGHT':
           head.x += 1;
           if (head.x >= boardSize) {
-            alert('Game Over! You hit the wall.');
+            alert(`Game Over! You hit the wall. Your score: ${score}.`);
             setSnake([{ x: 10, y: 10 }]);
             setDirection('RIGHT');
             setFood({ x: 15, y: 15 });
@@ -164,7 +164,7 @@ const SnakeGame = () => {
 
       newSnake.unshift(head);
       if (checkCollision(head, newSnake)) {
-        alert('Game Over! You collided with yourself.');
+        alert(`Game Over! You collided with yourself. Your score: ${score}.`);
         setSnake([{ x: 10, y: 10 }]);
         setDirection('RIGHT');
         setFood({ x: 15, y: 15 });
